@@ -257,7 +257,7 @@ const ModernNavbar = () => {
               {/* Mobile More Menu */}
               <div className="pt-4 border-t border-gray-200/20">
                 <div className="text-sm font-semibold text-gray-500 px-4 py-2">More</div>
-                {moreMenuItems.map((item, index) => (
+                {moreMenuItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}

@@ -8,9 +8,9 @@ const TrendingWidget = ({ trendingPosts }:TrendingWidgetProps) => {
       <h3 className="text-xl font-bold text-slate-900 mb-6">Trending Posts</h3>
       <ul className="space-y-4">
         {trendingPosts.map((post) => (
-          <li key={post.id} className="border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+          <li key={post.slug} className="border-b border-slate-100 pb-3 last:border-0 last:pb-0">
             <a
-              href={`/blog/${post.id}`}
+              href={`/blog/${post.slug}`}
               className="block text-slate-700 hover:text-indigo-600 font-medium transition-colors duration-300"
             >
               {post.title}
