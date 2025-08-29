@@ -13,10 +13,9 @@ class PATHS {
 
   // Admin routes
   static Admin = "/admin";
-  static Admin2 = "/admin2";
   static AdminPosts = "/admin/posts";
   static Analytics = "/admin/analytics";
-  static AdminNewPost = "/admin/posts/new";
+  static AdminNewPost = "/posts/new";
 
   static NotFound = "*";
 }

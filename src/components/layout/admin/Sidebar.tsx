@@ -46,7 +46,7 @@ const Sidebar = ({ sidebarOpen, setActiveSection }: SidebarProps ) => {
       paths: ['/admin/posts', '/admin/pages', '/admin/media'],
       subItems: [
         { id: 'posts', label: "Posts", paths: ['/admin/posts'] },
-        { id: 'pages', label: "Pages", paths: ['/admin/posts/new'] },
+        { id: 'pages', label: "Pages", paths: ['/posts/new'] },
         { id: 'media', label: "Media", paths: ['/admin/media'] }
       ]
     },

@@ -5,11 +5,11 @@ import BlogDetail from "../pages/blog/BlogDetails";
 import Services from "../pages/services/services";
 import About from "../pages/about/About";
 import Contact from "../pages/contact/Contact";
-// import ProtectedRoute from "../components/routing/ProtectedRoute";
-// import AdminLayout from "../components/layout/admin/AdminLayout";
-// import AdminPosts from "../components/layout/admin/blogs/Blogs";
-// import AdminDashboard from "../components/layout/admin/dashboard/Dashboard";
-// import AnalyticsDashboard from "../components/layout/admin/dashboard/AnalyticDashboard";
+import ProtectedRoute from "../components/routing/ProtectedRoute";
+import AdminLayout from "../components/layout/admin/AdminLayout";
+import AdminPosts from "../components/layout/admin/blogs/Blogs";
+import AdminDashboard from "../components/layout/admin/dashboard/Dashboard";
+import AnalyticsDashboard from "../components/layout/admin/dashboard/AnalyticDashboard";
 import AdminNewPost from "../components/layout/admin/blogs/AddBlog";
 import LoginPage from "../pages/admin/Login";
 // import Privacy from "../pages/privacy/Privacy";
@@ -17,7 +17,7 @@ import LoginPage from "../pages/admin/Login";
 // import NotFound from "../pages/notfound/notfound";
 
 import PATHS from "../constants/paths";
-// const isAuthenticated = true; // ❌ placeholder
+const isAuthenticated = true;
 
 
 const routes = [
@@ -36,20 +36,21 @@ const routes = [
       // { path: PATHS.NotFound, element: <NotFound /> },
     ],
   },
-  // {
-  //   path: PATHS.Admin,
-  //   element: (
-  //     <ProtectedRoute isAuthenticated={isAuthenticated}>
-  //       <AdminLayout />
-  //     </ProtectedRoute>
-  //   ),
-  //   children: [
-  //     { path: PATHS.Admin, element: <AdminDashboard /> },
-  //     { path: PATHS.AdminPosts, element: <AdminPosts /> },
-  //     { path: PATHS.Analytics, element: <AnalyticsDashboard /> },
-  //   ],
-  // },
-  { path: PATHS.Admin, element: <AdminNewPost /> },
+  {
+    path: PATHS.Admin,
+    element: (
+      <ProtectedRoute isAuthenticated={isAuthenticated}>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: PATHS.Admin, element: <AdminDashboard /> },
+      { path: PATHS.AdminPosts, element: <AdminPosts /> },
+      { path: PATHS.Analytics, element: <AnalyticsDashboard /> },
+    ],
+  },
+  { path: PATHS.AdminNewPost, element: <AdminNewPost /> },
+
 ];
 
 export default routes;
