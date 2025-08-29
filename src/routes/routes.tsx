@@ -17,7 +17,7 @@ import LoginPage from "../pages/admin/Login";
 // import NotFound from "../pages/notfound/notfound";
 
 import PATHS from "../constants/paths";
-const isAuthenticated = true; // ❌ placeholder
+// const isAuthenticated = true; // ❌ placeholder
 
 
 const routes = [
