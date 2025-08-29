@@ -1,30 +1,33 @@
 import { ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import type { MenuItemProps, SubItemType } from "../../../types/MenuItems";
 
-const MenuItem = ({ item, sidebarOpen, setActiveSection }: any) => {
+type ExpandedMenus = {
+  [key: string]: boolean;
+};
+
+const MenuItem = ({ item, sidebarOpen, setActiveSection }:MenuItemProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [expandedMenus, setExpandedMenus] = useState({});
-
-
+  const [expandedMenus, setExpandedMenus] = useState<ExpandedMenus>({});
   const IconComponent = item.icon;
   const hasSubItems = item.subItems && item.subItems.length > 0;
 
-  const toggleMenu = (menuId:number) => {
+  const toggleMenu = (menuId: string) => {
     setExpandedMenus(prev => ({
       ...prev,
       [menuId]: !prev[menuId]
     }));
   };
 
+
   // active if current path is in this item's paths or its subItems
   const isActive =
     item.paths?.includes(location.pathname) ||
-    (hasSubItems &&
-      item.subItems.some((sub) => sub.paths?.includes(location.pathname)));
+    (hasSubItems && item.subItems!.some((sub:SubItemType) => sub.paths?.includes(location.pathname)));
 
-  const isExpanded = expandedMenus[item.id];
+  const isExpanded: boolean = expandedMenus[item.id] || false;
 
   return (
     <div>
@@ -68,7 +71,7 @@ const MenuItem = ({ item, sidebarOpen, setActiveSection }: any) => {
 
       {hasSubItems && isExpanded && sidebarOpen && (
         <div className="ml-6 mt-2 space-y-1">
-          {item.subItems.map((subItem, index: number) => {
+          {item.subItems!.map((subItem:SubItemType, index: number) => {
             const subActive = subItem.paths?.includes(location.pathname);
             return (
               <button

@@ -13,9 +13,10 @@ import {
   Mail,
   HelpCircle
 } from "lucide-react";
+import type { MenuItemType, SidebarProps } from "../../../types/MenuItems";
 
-const Sidebar = ({ sidebarOpen, setActiveSection }: any) => {
-  const menuItems = [
+const Sidebar = ({ sidebarOpen, setActiveSection }: SidebarProps ) => {
+  const menuItems:MenuItemType[] = [
     {
       id: 'dashboard',
       icon: LayoutDashboard,

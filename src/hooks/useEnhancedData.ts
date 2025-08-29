@@ -10,7 +10,7 @@ export const useEnhancedData = (blogPosts: BlogPost[], categories: Category[]) =
         image:
           post.thumbnail ||
           `https://images.unsplash.com/photo-${
-            1500000000000 + post.id
+            1500000000000 + post.slug
           }?w=400&h=250&fit=crop&crop=entropy&auto=format&q=80`,
       })),
     [blogPosts]
