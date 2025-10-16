@@ -5,12 +5,6 @@ import {
   Phone,
   MapPin,
   Send,
-  Twitter,
-  Linkedin,
-  Zap,
-  Shield,
-  Users,
-  TrendingUp,
   Star,
   ArrowUp
 } from 'lucide-react';
@@ -122,26 +116,8 @@ const ModernFooter = () => {
       name: 'Threads',
       gradient: 'from-gray-800 to-black'
     },
-    {
-      icon: Twitter,
-      href: 'https://twitter.com',
-      name: 'Twitter',
-      gradient: 'from-blue-400 to-blue-600'
-    },
-    {
-      icon: Linkedin,
-      href: 'https://linkedin.com',
-      name: 'LinkedIn',
-      gradient: 'from-blue-700 to-blue-900'
-    }
   ];
 
-  const stats = [
-    { number: '50K+', label: 'Happy Users', icon: Users },
-    { number: '99.9%', label: 'Uptime', icon: Zap },
-    { number: '24/7', label: 'Support', icon: Shield },
-    { number: '150%', label: 'Growth', icon: TrendingUp }
-  ];
 
   return (
     <>
@@ -181,8 +157,8 @@ const ModernFooter = () => {
                 <button
                   type="submit"
                   className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${isSubscribed
-                      ? 'bg-green-500 text-white'
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white hover:scale-105 shadow-lg hover:shadow-2xl'
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white hover:scale-105 shadow-lg hover:shadow-2xl'
                     }`}
                   disabled={isSubscribed}
                 >
@@ -202,25 +178,6 @@ const ModernFooter = () => {
             </div>
           </div>
 
-          {/* Stats Section */}
-          <div className="mb-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className="text-center group"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                  <stat.icon className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-400 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
 
@@ -228,11 +185,11 @@ const ModernFooter = () => {
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-4 mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">T</span>
+                  <span className="text-white font-bold text-xl">LB</span>
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    Tech Crusader
+                    LifeBeauty
                   </h3>
                   <p className="text-sm text-gray-400">Innovation & Excellence</p>
                 </div>
@@ -253,7 +210,7 @@ const ModernFooter = () => {
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Mail className="w-4 h-4 text-indigo-400" />
-                  <span className="text-sm">hello@techcrusader.com</span>
+                  <span className="text-sm">lifebeauty@gmail.com</span>
                 </div>
               </div>
             </div>
@@ -288,7 +245,7 @@ const ModernFooter = () => {
               {/* Copyright */}
               <div className="text-center lg:text-left">
                 <p className="text-gray-400 flex items-center justify-center lg:justify-start space-x-2">
-                  <span>&copy; {currentYear} Tech Crusader. Made with</span>
+                  <span>&copy; {currentYear} Life Beauty. Made with</span>
                   <Heart className="w-4 h-4 text-red-500 fill-current" />
                   <span>in India</span>
                 </p>
@@ -339,33 +296,6 @@ const ModernFooter = () => {
           </div>
         </button>
       )}
-
-      {/* Demo Content for Scrolling
-      <div className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">
-            Modern Footer Design Showcase
-          </h2>
-          <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-            Scroll down to see the beautiful footer with glassmorphism effects, animated backgrounds, 
-            newsletter subscription, social media integration, and a floating back-to-top button that 
-            appears when you're near the bottom of the page.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            {Array.from({ length: 9 }, (_, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-lg">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Feature {i + 1}
-                </h3>
-                <p className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

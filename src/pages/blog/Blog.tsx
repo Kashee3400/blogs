@@ -1,84 +1,36 @@
-// // =================================================================
-// // pages/Blog.tsx - Blog Page Component with Filtering
-// // =================================================================
-import  { useState, useMemo } from 'react';
-import {Filter, Search,X } from 'lucide-react';
+import { useEffect } from 'react';
+import { Filter, Search, X } from 'lucide-react';
 import BlogList from './BlogList';
 import posts from './index'; // Import your posts
 import { parseMarkdown } from '../../utils/parseMarkdown';
+import { useBlogStore } from '../../store/Blog.store';
 
 const Blog = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Parse all posts and extract categories
-  const allPosts = useMemo(() => {
-    return Object.entries(posts).map(([slug, content]) => 
+  // Subscribe to specific state slices for performance
+  const activeCategory = useBlogStore((state) => state.activeCategory);
+  const searchQuery = useBlogStore((state) => state.searchQuery);
+  const isSidebarOpen = useBlogStore((state) => state.isSidebarOpen);
+  const categories = useBlogStore((state) => state.categories);
+
+  // Actions
+  const setActiveCategory = useBlogStore((state) => state.setActiveCategory);
+  const setSearchQuery = useBlogStore((state) => state.setSearchQuery);
+  const toggleSidebar = useBlogStore((state) => state.toggleSidebar);
+  const getFilteredPosts = useBlogStore((state) => state.getFilteredPosts);
+  const getCategoryCount = useBlogStore((state) => state.getCategoryCount);
+  const initializePosts = useBlogStore((state) => state.initializePosts);
+
+  // Initialize posts on mount
+  useEffect(() => {
+    // Parse and convert your posts object to BlogPost array
+    const allPosts = Object.entries(posts).map(([slug, content]) =>
       parseMarkdown(content as string, slug)
     );
-  }, []);
+    initializePosts(allPosts);
+  }, [initializePosts]);
 
-  // Extract unique categories from posts
-  const categories = useMemo(() => {
-    const categorySet = new Set<string>();
-    categorySet.add("All"); // Always include "All"
-    
-    allPosts.forEach(post => {
-      if (post.category) {
-        categorySet.add(post.category);
-      }
-      // Also add tags as potential categories
-      if (post.tags) {
-        post.tags.forEach(tag => categorySet.add(tag));
-      }
-      // Fallback to type if no category
-      if (!post.category && post.type) {
-        categorySet.add(post.type);
-      }
-    });
-    
-    return Array.from(categorySet);
-  }, [allPosts]);
-
-  // Filter posts based on active category and search
-  const filteredPosts = useMemo(() => {
-    let filtered = allPosts;
-
-    // Filter by category
-    if (activeCategory !== "All") {
-      filtered = filtered.filter(post => {
-        return (
-          post.category === activeCategory ||
-          post.type === activeCategory ||
-          (post.tags && post.tags.includes(activeCategory))
-        );
-      });
-    }
-
-    // Filter by search query
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(post =>
-        post.title.toLowerCase().includes(query) ||
-        post.excerpt.toLowerCase().includes(query) ||
-        post.author?.name.toLowerCase().includes(query) ||
-        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(query)))
-      );
-    }
-
-    return filtered;
-  }, [allPosts, activeCategory, searchQuery]);
-
-  // Get category counts
-  const getCategoryCount = (category: string) => {
-    if (category === "All") return allPosts.length;
-    return allPosts.filter(post => 
-      post.category === category || 
-      post.type === category || 
-      (post.tags && post.tags.includes(category))
-    ).length;
-  };
+  const filteredPosts = getFilteredPosts();
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -87,7 +39,7 @@ const Blog = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Social Media Growth 
+              Social Media Growth
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Blog</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -105,7 +57,7 @@ const Blog = () => {
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden mb-6">
               <button
-                onClick={() => setIsSidebarOpen(true)}
+                onClick={() => toggleSidebar}
                 className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm"
               >
                 <Filter className="w-4 h-4" />
@@ -162,7 +114,7 @@ const Blog = () => {
             {filteredPosts.length > 0 ? (
               <>
                 <BlogList posts={filteredPosts} />
-                
+
                 {/* Load More Button */}
                 {filteredPosts.length > 6 && (
                   <div className="text-center mt-12">
@@ -182,7 +134,7 @@ const Blog = () => {
                   No articles found
                 </h3>
                 <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                  {searchQuery 
+                  {searchQuery
                     ? `No articles match your search "${searchQuery}" in the ${activeCategory} category.`
                     : `No articles found in the ${activeCategory} category.`
                   }
@@ -228,28 +180,26 @@ const Blog = () => {
                       {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
                     </span>
                   </div>
-                  
+
                   <div className="space-y-2">
                     {categories.map((category) => {
                       const isActive = activeCategory === category;
                       const count = getCategoryCount(category);
-                      
+
                       return (
                         <button
                           key={category}
                           onClick={() => setActiveCategory(category)}
-                          className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${
-                            isActive
-                              ? 'bg-indigo-500 text-white shadow-md'
-                              : 'bg-gray-50 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
-                          }`}
+                          className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${isActive
+                            ? 'bg-indigo-500 text-white shadow-md'
+                            : 'bg-gray-50 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
+                            }`}
                         >
                           <span className="font-medium">{category}</span>
-                          <span className={`text-sm px-2 py-1 rounded-full ${
-                            isActive 
-                              ? 'bg-white/20 text-white' 
-                              : 'bg-gray-200 text-gray-600'
-                          }`}>
+                          <span className={`text-sm px-2 py-1 rounded-full ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-gray-200 text-gray-600'
+                            }`}>
                             {count}
                           </span>
                         </button>
@@ -264,7 +214,7 @@ const Blog = () => {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Total Articles</span>
-                      <span className="font-medium">{allPosts.length}</span>
+                      <span className="font-medium">{filteredPosts.length}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Categories</span>
@@ -285,19 +235,19 @@ const Blog = () => {
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 overflow-hidden">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsSidebarOpen(false)} />
-          
+          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => toggleSidebar} />
+
           <div className="absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-xl">
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold">Filters</h2>
               <button
-                onClick={() => setIsSidebarOpen(false)}
+                onClick={() => toggleSidebar}
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
+
             <div className="p-6 overflow-y-auto h-full pb-20">
               {/* Mobile Search */}
               <div className="mb-8">
@@ -321,26 +271,24 @@ const Blog = () => {
                   {categories.map((category) => {
                     const isActive = activeCategory === category;
                     const count = getCategoryCount(category);
-                    
+
                     return (
                       <button
                         key={category}
                         onClick={() => {
                           setActiveCategory(category);
-                          setIsSidebarOpen(false);
+                          toggleSidebar;
                         }}
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${
-                          isActive
-                            ? 'bg-indigo-500 text-white shadow-md'
-                            : 'bg-gray-50 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
-                        }`}
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${isActive
+                          ? 'bg-indigo-500 text-white shadow-md'
+                          : 'bg-gray-50 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
+                          }`}
                       >
                         <span className="font-medium">{category}</span>
-                        <span className={`text-sm px-2 py-1 rounded-full ${
-                          isActive 
-                            ? 'bg-white/20 text-white' 
-                            : 'bg-gray-200 text-gray-600'
-                        }`}>
+                        <span className={`text-sm px-2 py-1 rounded-full ${isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-gray-200 text-gray-600'
+                          }`}>
                           {count}
                         </span>
                       </button>

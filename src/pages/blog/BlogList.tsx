@@ -8,7 +8,7 @@ import posts from './index';
 import { parseMarkdown } from '../../utils/parseMarkdown';
 
 interface BlogListProps {
-  posts?: BlogPost[]; // Accept filtered posts as prop
+  posts: BlogPost[];
 }
 
 const BlogList = ({ posts: filteredPosts }: BlogListProps) => {
