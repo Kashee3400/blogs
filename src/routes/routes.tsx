@@ -31,7 +31,7 @@ const routes = [
       { path: PATHS.Services, element: <Services /> },
       { path: PATHS.About, element: <About /> },
       { path: PATHS.Contact, element: <Contact /> },
-      // { path: PATHS.Privacy, element: <Privacy /> },
+      { path: PATHS.Privacy, element: <Privacy /> },
       // { path: PATHS.Disclaimer, element: <Disclaimer /> },
       // { path: PATHS.NotFound, element: <NotFound /> },
     ],

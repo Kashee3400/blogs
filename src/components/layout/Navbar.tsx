@@ -93,10 +93,8 @@ const ModernNavbar = () => {
   // Main navigation items
   const navItems = [
     { name: 'All Stories', href: '/', icon: Home },
-    { name: 'Fashion', href: '/blog', icon: FileText },
-    { name: 'Beauty', href: '/services', icon: Settings },
-    { name: 'Lifestyle', href: '/services', icon: Settings },
-    { name: 'Wellness', href: '/services', icon: Settings },
+    { name: 'Blogs', href: '/blog', icon: FileText },
+    { name: 'Services', href: '/services', icon: Settings },
   ];
 
   // Function to check if route is active

@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   Heart,
   Mail,
-  Phone,
-  MapPin,
   Send,
   Star,
   ArrowUp
@@ -64,33 +62,6 @@ const ModernFooter = () => {
 
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    company: [
-      { name: 'About Us', href: '/about' },
-      { name: 'Our Team', href: '/team' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Press Kit', href: '/press' }
-    ],
-    resources: [
-      { name: 'Blog', href: '/blog' },
-      { name: 'Documentation', href: '/docs' },
-      { name: 'Help Center', href: '/help' },
-      { name: 'API Reference', href: '/api' }
-    ],
-    legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'Disclaimer', href: '/disclaimer' }
-    ],
-    connect: [
-      { name: 'Contact Us', href: '/contact' },
-      { name: 'Support', href: '/support' },
-      { name: 'Partnerships', href: '/partners' },
-      { name: 'Affiliate Program', href: '/affiliate' }
-    ]
-  };
-
   const socialLinks = [
     {
       icon: InstagramIcon,
@@ -122,7 +93,7 @@ const ModernFooter = () => {
   return (
     <>
       {/* Main Footer */}
-      <footer className="relative mt-20 bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white overflow-hidden">
+      <footer className="relative bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -177,67 +148,6 @@ const ModernFooter = () => {
               </form>
             </div>
           </div>
-
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
-
-            {/* Brand Section */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">LB</span>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    LifeBeauty
-                  </h3>
-                  <p className="text-sm text-gray-400">Innovation & Excellence</p>
-                </div>
-              </div>
-              <p className="text-gray-300 leading-relaxed mb-6">
-                Empowering the digital future with cutting-edge technology solutions, innovative content, and exceptional user experiences.
-              </p>
-
-              {/* Contact Info */}
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <MapPin className="w-4 h-4 text-indigo-400" />
-                  <span className="text-sm">New Delhi, India</span>
-                </div>
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <Phone className="w-4 h-4 text-indigo-400" />
-                  <span className="text-sm">+91 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <Mail className="w-4 h-4 text-indigo-400" />
-                  <span className="text-sm">lifebeauty@gmail.com</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer Links */}
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
-                <h4 className="text-lg font-semibold mb-4 text-white capitalize">
-                  {category}
-                </h4>
-                <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center space-x-2 group"
-                      >
-                        <span className="w-1 h-1 bg-indigo-400 rounded-full group-hover:w-2 transition-all duration-300"></span>
-                        <span>{link.name}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
           {/* Social Media & Bottom Section */}
           <div className="border-t border-gray-800/50 pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
